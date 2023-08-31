@@ -1,6 +1,6 @@
-import { CommandInteraction, ApplicationCommandType, Client, CommandInteractionOptionResolver } from "discord.js";
+import { CommandInteraction, ApplicationCommandType, Client, CommandInteractionOptionResolver, ApplicationCommandOptionType } from "discord.js";
 import { Command } from "../Command";
-import { openai } from "src/OpenAI";
+import openai from "src/openAIConfig";
 
 export const Roll: Command = {
     name: "roll",
@@ -9,13 +9,16 @@ export const Roll: Command = {
         {
             name: "dice",
             description: "The dice to roll",
-            type: "STRING",
+            type: ApplicationCommandOptionType.String,
             required: true
         }
     ],
     type: ApplicationCommandType.ChatInput,
     run: async (client: Client, interaction: CommandInteraction) => {
-        const diceOption = interaction.options.get("dice") as CommandInteractionOptionResolver<string>;
+        const diceOption = interaction.options.get("dice");
+        if (!diceOption) {
+            return await interaction.reply("Please provide a valid dice value.");
+        }
         const diceValue = diceOption.value as string;
 
         const prompt = `
@@ -37,7 +40,7 @@ export const Roll: Command = {
         });
         const content = result.data.choices[0].text;
 
-        await interaction.followUp({
+        await interaction.reply({
             ephemeral: true,
             content
         });
