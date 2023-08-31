@@ -1,25 +1,17 @@
-import { Client, GatewayIntentBits, ClientOptions } from "discord.js";
-import interactionCreate from "./listeners/interactionCreate";
-import messageCreate from "./listeners/messageCreate";
-import ready from "./listeners/ready";
-import OpenAI from 'openai-api';
+import { Client, GatewayIntentBits } from "discord.js";
+import fs from "fs";
+import path from "path";
 
-// load variables from .env file
-import dotenv from "dotenv";
-dotenv.config();
+const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages] });
 
-// get bot token from .env file
-const token = process.env.TOTALLYHUMAN_DISCORD_BOT_TOKEN;
 
-console.log("Bot is starting...");
+// Dynamically set up listeners from the listeners directory
+const listenerFiles = fs.readdirSync(path.join(__dirname, 'listeners')).filter(file => file.endsWith('.ts'));
 
-const client = new Client({
-    intents: [GatewayIntentBits.GuildMessages, GatewayIntentBits.GuildMembers]
-});
+for (const file of listenerFiles) {
+    const listener = require(path.join(__dirname, 'listeners', file)).default;
+    listener(client);
+}
 
-ready(client);
-interactionCreate(client);
-messageCreate(client)
-
-client.login(token);
+client.login(process.env.TOTALLYHUMAN_DISCORD_BOT_TOKEN);
 

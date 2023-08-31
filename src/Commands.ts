@@ -1,8 +1,16 @@
 import { Command } from "./Command";
-import { Hello } from "./commands/Hello";
-import { Roll } from "./commands/Roll";
+import fs from "fs";
+import path from "path";
 
-export const Commands: Command[] =[
-  Hello,
-  Roll
-];
+// Get all command files from the commands directory
+const commandFiles = fs.readdirSync(path.join(__dirname, 'commands')).filter(file => file.endsWith('.ts'));
+
+const Commands: Command[] = [];
+
+// Dynamically import each command and add it to the Commands array
+for (const file of commandFiles) {
+    const command: Command = require(path.join(__dirname, 'commands', file)).default;
+    Commands.push(command);
+}
+
+export default Commands;

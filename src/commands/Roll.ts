@@ -1,6 +1,7 @@
-import { CommandInteraction, ApplicationCommandType, Client, CommandInteractionOptionResolver, ApplicationCommandOptionType } from "discord.js";
+import { CommandInteraction, ApplicationCommandType, Client, ApplicationCommandOptionType } from "discord.js";
 import { Command } from "../Command";
-import openai from "src/openAIConfig";
+import openai from "../openAIConfig";
+
 
 export const Roll: Command = {
     name: "roll",
