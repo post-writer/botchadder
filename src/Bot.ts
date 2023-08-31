@@ -1,8 +1,11 @@
 import { Client, GatewayIntentBits } from "discord.js";
 import fs from "fs";
 import path from "path";
+import dotenv from "dotenv";
+dotenv.config();
 
-const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages] });
+console.log("Bot is starting...");
+const client = new Client({ intents: [GatewayIntentBits.GuildMembers, GatewayIntentBits.GuildMessages] });
 
 
 // Dynamically set up listeners from the listeners directory
@@ -14,4 +17,3 @@ for (const file of listenerFiles) {
 }
 
 client.login(process.env.TOTALLYHUMAN_DISCORD_BOT_TOKEN);
-
