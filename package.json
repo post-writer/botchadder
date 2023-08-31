@@ -2,12 +2,12 @@
   "type": "module",
   "devDependencies": {
     "@types/node": "^20.5.7",
-    "ts-node": "^10.9.1",
-    "typescript": "^5.2.2"
+    "ts-node": "^10.9.1"
   },
   "dependencies": {
     "discord.js": "^14.13.0",
-    "dotenv": "^16.3.1"
+    "dotenv": "^16.3.1",
+    "typescript": "^5.2.2"
   },
   "scripts": {
     "start": "ts-node src/Bot.ts"
