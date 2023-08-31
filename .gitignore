@@ -56,3 +56,5 @@ yarn.lock
 *.komodoproject
 *.komodoide
 *.kate-swp
+
+.fake
