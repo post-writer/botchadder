@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-      "target": "ESNext",
+      "target": "ESNEXT",
       "module": "commonjs",
       "rootDir": "./src/",
       "outDir": "./dist/",
@@ -17,7 +17,7 @@
       "typeRoots": [
           "node_modules/@types"
       ],
-      "sourceMap": false,
+      "sourceMap": true,
       "baseUrl": "./"
   },
   "files": [
